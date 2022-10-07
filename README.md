@@ -7,3 +7,5 @@ These projects are being done based on the book "impractical python projects: Pl
 
 Thankyou,
 Shamanth
+
+Note: some projects are not from the book. These are being written for own use.
