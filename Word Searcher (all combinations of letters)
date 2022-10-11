@@ -1,0 +1,90 @@
+'''
+Download the "word.txt" file from the link below
+https://github.com/shamanthagowda/Additional-files-for-Python-Project-repo/blob/main/words.txt
+
+Change the path in the function creation step itself
+'''
+
+
+import itertools
+
+# opens the all words containing file
+def open_file(path='C:\\Users\\shama\\Downloads\\words.txt',type='r'):
+# change the path in path=your word.txt file path
+    with open(path, type) as file:
+        lst=file.readlines()
+        return word_list_splitter(lst)
+
+# creates list of each word
+def word_list_splitter(lst):
+    splt_word_lst=[]
+    for i in lst:
+        i.lower()
+        splt_word_lst.append(list(str(i.split()).replace("['",'').replace("']",'')))
+    return splt_word_lst
+
+# creates list of the input word
+def inp_word_mod(word):
+    return list(word)
+
+# creates permutations
+class Calculation:
+    def __init__(self, word):
+        self.word=word
+
+    def word_per(self, word):
+        per_tup = itertools.permutations(word, len(word))
+        per_lst=[]
+        for each_1 in per_tup:
+            per_lst.append(list(each_1))
+        return per_lst
+
+# filter words based on length
+def len_filter(word_lst, word):
+    fil_words=[]
+    for i in word_lst:
+        if len(i)==len(word):
+            fil_words.append(i)
+    return fil_words
+
+# searching from the available data
+def mapping(per_data, filter_lst):
+    t_count,i_count,j_count=0,0,0
+    for i in per_data:
+        i_count+=1
+        j_count=0
+        for j in filter_lst:
+            j_count += 1
+            t_count+=1
+            if i==j:
+                print('')
+                for rep in ["'",',','[',']',' ']:
+                    i=str(i).replace(rep,'')
+                    j=str(j).replace(rep,'')
+                print(f'found, given word: [{i}], dictionary word: [{j}]')
+                print('permutation list count: {}\n'
+                      'filter list element count: {}\n'
+                      'total runs count: {}'.format(i_count,j_count,t_count))
+                print('--------------------------------------')
+    else:
+        return ('all chances are being verefied\nif no output found then there is no matching word')
+
+
+# runs infinite times to search for the word
+while True:
+    word=inp_word_mod(input('enter the word').lower())
+    print('word input complete')
+    
+    per_data=Calculation(word).word_per(word)
+    print('all chances of word are being created')
+    
+    filter_lst=len_filter(open_file(),word)
+    print('number of filtered words are {}'.format(len(filter_lst)))
+    
+    print('Searching for word')
+    
+    print(mapping(per_data,filter_lst))
+    
+    
+    print('NOTE: if same words repeated twice that means there is repetition of the letters')
+
